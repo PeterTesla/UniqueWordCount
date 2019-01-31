@@ -45,7 +45,26 @@ def diff(file1, file2, verbose = "False"):
     '''
     Take Two Files and show the Unique Words they do not have in common
     '''
-    pass
+    file1_txt = ''
+    file2_txt = ''
+
+    for line in open(file1).readlines():
+        ''.join(e for e in line if e.isalnum())
+        file1_txt =  file1_txt + line
+
+    for line in open(file2).readlines(): 
+        ''.join(e for e in line if e.isalnum())
+        file2_txt =  file2_txt + line
+
+    words1 = file1_txt.split()
+    uniq_words1 = set(words1)
+
+    words2 = file2_txt.split()
+    uniq_words2 = set(words2)
+
+    print('\n' + str(len( uniq_words1 - uniq_words2 )) + ' Words that are not shared in both text files')
+    if verbose == True: return uniq_words1 - uniq_words2
+    
 
 def same(file1, file2, verbose="False"):
     '''
