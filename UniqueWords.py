@@ -39,11 +39,20 @@ def ListUnique(file):
     '''
     Take a file and Output the set of Unique Words
     '''
-    pass
+    book_txt = ''
+
+    for line in open(file).readlines(): 
+        ''.join(e for e in line if e.isalnum())
+        book_txt =  book_txt + line
+
+    words = book_txt.split()
+    uniq_words = set(words)
+
+    print(uniq_words)
 
 def diff(file1, file2, verbose = "False"):
     '''
-    Take Two Files and show the Unique Words they do not have in common
+    Take Two Files and show the Unique Words they do not have in common, if verbose is on return the list
     '''
     file1_txt = ''
     file2_txt = ''
@@ -65,10 +74,9 @@ def diff(file1, file2, verbose = "False"):
     print('\n' + str(len( uniq_words1 - uniq_words2 )) + ' Words that are not shared in both text files')
     if verbose == True: return uniq_words1 - uniq_words2
     
-
 def same(file1, file2, verbose="False"):
     '''
-    Take Two Files and find the unique words that both files share, if Verbose is true return actual list - Returns the common list
+    Take Two Files and find the unique words that both files share, if Verbose is true return the list - Returns the common list
     '''
 
     file1_txt = ''
@@ -92,3 +100,9 @@ def same(file1, file2, verbose="False"):
 
     if verbose == True: return uniq_words1.intersection(uniq_words2)
 
+def main():
+    
+    pass
+
+if __name__ == "__main__":
+    main()
