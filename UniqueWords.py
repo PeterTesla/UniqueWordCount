@@ -125,7 +125,12 @@ def DefinedCount(file, verbose = False):
 
     if verbose == True: return uniq_words1.intersection(uniq_words2)
 
-
+def DefineWord(word):
+    '''
+    Adds the word too the list in Dict in case something should be defined as a word
+    '''
+    f = open("txtFiles/Dict.txt", "a")
+    f.write("\n" + word)
 
 def main():
 
