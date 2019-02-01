@@ -1,5 +1,5 @@
 '''
-A Python script that works with large text files returning the number of words and number of unique words
+A Series of python functions that work with Text Files too find the number of Unique Words
 '''
 
 def WordCount(file):
@@ -50,7 +50,7 @@ def ListUnique(file):
 
     print(uniq_words)
 
-def diff(file1, file2, verbose = "False"):
+def diff(file1, file2, verbose = False):
     '''
     Take Two Files and show the Unique Words they do not have in common, if verbose is on return the list
     '''
@@ -74,7 +74,7 @@ def diff(file1, file2, verbose = "False"):
     print('\n' + str(len( uniq_words1 - uniq_words2 )) + ' Words that are not shared in both text files')
     if verbose == True: return uniq_words1 - uniq_words2
     
-def same(file1, file2, verbose="False"):
+def same(file1, file2, verbose = False):
     '''
     Take Two Files and find the unique words that both files share, if Verbose is true return the list - Returns the common list
     '''
@@ -100,8 +100,35 @@ def same(file1, file2, verbose="False"):
 
     if verbose == True: return uniq_words1.intersection(uniq_words2)
 
+def DefinedCount(file, verbose = False):
+    '''
+    Using the included "txtFiles\Dict.txt" file as a list of defined words, find the number of words we know are for sure words
+    '''
+    file1_txt = ''
+    file2_txt = ''
+
+    for line in open(file).readlines():
+        ''.join(e for e in line if e.isalnum())
+        file1_txt =  file1_txt + line
+
+    for line in open("txtFiles/Dict.txt").readlines(): 
+        ''.join(e for e in line if e.isalnum())
+        file2_txt =  file2_txt + line
+
+    words1 = file1_txt.split()
+    uniq_words1 = set(words1)
+
+    words2 = file2_txt.split()
+    uniq_words2 = set(words2)
+
+    print('\n' + str(len(set(uniq_words1).intersection(uniq_words2))) + ' Is the number of words that are defined')
+
+    if verbose == True: return uniq_words1.intersection(uniq_words2)
+
+
+
 def main():
-    
+
     pass
 
 if __name__ == "__main__":
