@@ -133,8 +133,10 @@ def DefineWord(word):
     f.write("\n" + word)
 
 def main():
+    '''
+    A main function, anything put in here will run if the file is called as a script
+    '''
 
-    pass
 
 if __name__ == "__main__":
     main()
