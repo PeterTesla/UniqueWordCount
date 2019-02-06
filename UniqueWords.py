@@ -29,12 +29,17 @@ def DefinedWordCount(file):
         book_txt =  book_txt + line
 
     words = book_txt.split()
+    for word in words:
+        word =  word.lower()
+
     definedUniq = DefinedCount(file, True)
     TotalWords = []
 
     for word in words:
         if word in definedUniq:
             TotalWords.append(word)
+
+    print(TotalWords)
 
     print(len(TotalWords))
 
@@ -52,6 +57,7 @@ def ListWords(file):
     words = book_txt.split()
 
     print(words)
+    print(len(words))
 
 def ListUnique(file):
     '''
@@ -68,7 +74,7 @@ def ListUnique(file):
 
     print(uniq_words)
 
-def diff(file1, file2, verbose = False):
+def diff(file1, file2, returnList = False):
     '''
     Take Two Files and show the Unique Words they do not have in common, if verbose is on return the list
     '''
@@ -90,9 +96,9 @@ def diff(file1, file2, verbose = False):
     uniq_words2 = set(words2)
 
     print('\n' + str(len( uniq_words1 - uniq_words2 )) + ' Words that are not shared in both text files')
-    if verbose == True: return uniq_words1 - uniq_words2
+    if returnList == True: return uniq_words1 - uniq_words2
     
-def same(file1, file2, verbose = False):
+def same(file1, file2, returnList = False):
     '''
     Take Two Files and find the unique words that both files share, if Verbose is true return the list - Returns the common list
     '''
@@ -116,9 +122,9 @@ def same(file1, file2, verbose = False):
 
     print('\n' + str(len(set(uniq_words1).intersection(uniq_words2))) + ' Words are used in both text files')
 
-    if verbose == True: return uniq_words1.intersection(uniq_words2)
+    if returnList == True: return uniq_words1.intersection(uniq_words2)
 
-def DefinedCount(file, verbose = False):
+def DefinedCount(file, returnList = False):
     '''
     Using the included "txtFiles\Dict.txt" file as a list of defined words, find the number of words we know are for sure words
     '''
@@ -139,9 +145,9 @@ def DefinedCount(file, verbose = False):
     words2 = file2_txt.split()
     uniq_words2 = set(words2)
 
-    print('\n' + str(len(set(uniq_words1).intersection(uniq_words2))) + ' Is the number of  unique words that are defined')
+    if returnList != True: print('\n' + str(len(set(uniq_words1).intersection(uniq_words2))) + ' Is the number of  unique words that are defined')
 
-    if verbose == True: return uniq_words1.intersection(uniq_words2)
+    if returnList == True: return uniq_words1.intersection(uniq_words2)
 
 def DefineWord(word):
     '''
