@@ -1,6 +1,7 @@
 '''
 A Series of python functions that work with Text Files too find the number of Unique Words
 '''
+from collections import Counter
 
 def WordCount(file):
     '''
@@ -19,6 +20,23 @@ def WordCount(file):
     print('\nTotal Word Count: ' + str(len(words)))
     print('Unique Word Count: ' + str(len(uniq_words)) + '\n')
     print( str(round((len(uniq_words)/len(words))*100, 2)) + '%' )
+
+def DefinedWordCount(file):
+    book_txt = ''
+
+    for line in open(file).readlines(): 
+        ''.join(e for e in line if e.isalnum())
+        book_txt =  book_txt + line
+
+    words = book_txt.split()
+    definedUniq = DefinedCount(file, True)
+    TotalWords = []
+
+    for word in words:
+        if word in definedUniq:
+            TotalWords.append(word)
+
+    print(len(TotalWords))
 
 def ListWords(file):
     '''
@@ -121,7 +139,7 @@ def DefinedCount(file, verbose = False):
     words2 = file2_txt.split()
     uniq_words2 = set(words2)
 
-    print('\n' + str(len(set(uniq_words1).intersection(uniq_words2))) + ' Is the number of words that are defined')
+    print('\n' + str(len(set(uniq_words1).intersection(uniq_words2))) + ' Is the number of  unique words that are defined')
 
     if verbose == True: return uniq_words1.intersection(uniq_words2)
 
