@@ -1,7 +1,10 @@
+
 '''
 A Series of python functions that work with Text Files too find the number of Unique Words
 '''
+import re
 from collections import Counter
+
 
 def WordCount(file):
     '''
@@ -21,6 +24,7 @@ def WordCount(file):
     print('Unique Word Count: ' + str(len(uniq_words)) + '\n')
     print( str(round((len(uniq_words)/len(words))*100, 2)) + '%' )
 
+
 def DefinedWordCount(file):
     book_txt = ''
 
@@ -28,7 +32,9 @@ def DefinedWordCount(file):
         ''.join(e for e in line if e.isalnum())
         book_txt =  book_txt + line
 
+    book_txt = re.sub(r"[^a-zA-z0-9]+", ' ' , book_txt)
     words = book_txt.split()
+
     for word in words:
         word =  word.lower()
 
@@ -39,8 +45,26 @@ def DefinedWordCount(file):
         if word in definedUniq:
             TotalWords.append(word)
 
-    print(TotalWords)
+    print('\n' + str(len(TotalWords)) + " is the number of words that are defined in the Dictionary")
 
+def ListUndefined(file):
+    book_txt = ''
+
+    for line in open(file).readlines(): 
+        book_txt =  book_txt + line
+
+    book_txt = book_txt.lower()
+    book_txt = re.sub(r"[^a-zA-z0-9]+", ' ' , book_txt)
+    words = book_txt.split()
+
+    definedUniq = DefinedCount(file, True)
+    TotalWords = []
+
+    for word in words:
+        if word not in definedUniq:
+            TotalWords.append(word)
+
+    print(TotalWords)
     print(len(TotalWords))
 
 def ListWords(file):
@@ -73,6 +97,8 @@ def ListUnique(file):
     uniq_words = set(words)
 
     print(uniq_words)
+    print(len(uniq_words))
+
 
 def diff(file1, file2, returnList = False):
     '''
@@ -95,9 +121,10 @@ def diff(file1, file2, returnList = False):
     words2 = file2_txt.split()
     uniq_words2 = set(words2)
 
-    print('\n' + str(len( uniq_words1 - uniq_words2 )) + ' Words that are not shared in both text files')
+    if returnList != True: print('\n' + str(len( uniq_words1 - uniq_words2 )) + ' Words that are not shared in both text files')
     if returnList == True: return uniq_words1 - uniq_words2
-    
+ 
+
 def same(file1, file2, returnList = False):
     '''
     Take Two Files and find the unique words that both files share, if Verbose is true return the list - Returns the common list
@@ -120,9 +147,9 @@ def same(file1, file2, returnList = False):
     words2 = file2_txt.split()
     uniq_words2 = set(words2)
 
-    print('\n' + str(len(set(uniq_words1).intersection(uniq_words2))) + ' Words are used in both text files')
-
+    if returnList != True: print('\n' + str(len(set(uniq_words1).intersection(uniq_words2))) + ' Words are used in both text files')
     if returnList == True: return uniq_words1.intersection(uniq_words2)
+
 
 def DefinedCount(file, returnList = False):
     '''
@@ -132,11 +159,9 @@ def DefinedCount(file, returnList = False):
     file2_txt = ''
 
     for line in open(file).readlines():
-        ''.join(e for e in line if e.isalnum())
         file1_txt =  file1_txt + line
 
     for line in open("txtFiles/Dict.txt").readlines(): 
-        ''.join(e for e in line if e.isalnum())
         file2_txt =  file2_txt + line
 
     words1 = file1_txt.split()
@@ -146,8 +171,8 @@ def DefinedCount(file, returnList = False):
     uniq_words2 = set(words2)
 
     if returnList != True: print('\n' + str(len(set(uniq_words1).intersection(uniq_words2))) + ' Is the number of  unique words that are defined')
-
     if returnList == True: return uniq_words1.intersection(uniq_words2)
+
 
 def DefineWord(word):
     '''
@@ -155,6 +180,25 @@ def DefineWord(word):
     '''
     f = open("txtFiles/Dict.txt", "a")
     f.write("\n" + word)
+
+def isDefined(word):
+    '''
+    Test for if a word is in the Dictionary
+    '''
+
+    file2_txt = ''
+
+    for line in open("txtFiles/Dict.txt").readlines(): 
+        ''.join(e for e in line if e.isalnum())
+        file2_txt =  file2_txt + line
+
+    defined = file2_txt.split()
+
+    if word in set(defined):
+        print('Word is Defined')
+    else:
+        print('Word is Undefined')
+
 
 def main():
     '''
